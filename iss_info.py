@@ -7,7 +7,7 @@ import requests
 
 
 people = requests.get('http://api.open-notify.org/astros.json')
-iss_position  = requests.get('http://api.open-notify.org/iss-now.json')
+iss_position = requests.get('http://api.open-notify.org/iss-now.json')
 
 
 
