@@ -26,6 +26,9 @@ CATEGORIES = ['3D Printing,Accessibility', 'Advertising and Marketing','Artifici
 EXHIBITOR_SEARCH_FILTER = ['A']
 
 with open('ces_exhibitor.csv', 'w', newline='') as csvfile:
+    csvwriter = csv.writer(csvfile, delimiter=',')
+    #write the header row
+    csvwriter.writerow(['Company Name', 'Description', 'Booth Number', 'Company Link', 'Categories'])
 
     for f1 in EXHIBITOR_SEARCH_FILTER:
         param1_full = param1_base + f1
@@ -42,7 +45,6 @@ with open('ces_exhibitor.csv', 'w', newline='') as csvfile:
             for c in p['categories']:
                 print('Categories::', c['categoryName'])
 
-            csvwriter = csv.writer(csvfile, delimiter=',')
             csvwriter.writerow([p['companyName'], p['description'], p['booths'][0]['boothNumber'], p['companyLink']])
 
 
