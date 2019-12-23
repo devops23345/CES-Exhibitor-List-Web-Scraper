@@ -43,15 +43,21 @@ def get_exhibitor_list(letter, page_num):
 
 def parse_exhibitor_data():
     for p in ces_response_json['exhibitors']:
+        cat_list = []
+
+        #print to terminal
         print('Company Name:: ', p['companyName'])
         print('Description:: ', p['description'])
         print('Company Link:: ', p['companyLink'])
         print('Hall::', HallDecoder.get(p['booths'][0]['hall'], 'None'), 'Booth Number:: ', p['booths'][0]['boothNumber'])
         for c in p['categories']:
             print('Categories::', c['categoryName'])
+            cat_list.append(c['categoryName'])
 
+        #write to file in CSV format
         csvwriter.writerow([p['companyName'], p['description'], HallDecoder.get(p['booths'][0]['hall'], 'None'),
-                            p['booths'][0]['boothNumber'], '=HYPERLINK(\"'+p['companyLink']+'\")'])
+                            p['booths'][0]['boothNumber'], '=HYPERLINK(\"'+p['companyLink']+'\")',
+                            cat_list])
 
     return
 
