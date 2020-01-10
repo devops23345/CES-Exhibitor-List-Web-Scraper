@@ -1,5 +1,6 @@
 import os
 import csv
+
 import requests
 
 print(':::-Program Started-:::')
@@ -57,10 +58,11 @@ def parse_exhibitor_data():
 
         for c in p['categories']:
             print('Categories::', c['categoryName'])
+            #cat_list = c['categoryName']
             cat_list.append(c['categoryName'])
-            cat_dict['categories'] = cat_dict['categories'] + c['categoryName'] + ','
+            cat_dict['categories'] = cat_dict['categories'] + c['categoryName'] + '|'
         print('DEBUG:: cat_list::', cat_list)
-        print('DEBUG:: cat_dict::', cat_dict)
+        print('DEBUG:: cat_dict::', cat_dict['categories'])
 
         # write to file in CSV format
         csvwriter.writerow([p['companyName'], p['description'], HallDecoder.get(p['booths'][0]['hall'], 'None'),
@@ -80,7 +82,7 @@ def parse_exhibitor_data():
 
 
 with open('ces_exhibitor.csv', 'w', newline='') as csvfile:
-    csvwriter = csv.writer(csvfile, delimiter=',')
+    csvwriter = csv.writer(csvfile, delimiter='|', quoting=csv.QUOTE_MINIMAL)
     # write the header row
     csvwriter.writerow(['Company Name', 'Description', 'Hall', 'Booth Number', 'Company Link', 'Categories'])
 # with open('ces_exhibitor2.csv', 'w') as file_object:
